@@ -1,0 +1,3 @@
+#game window
+WINDOW_WITDTH = 910
+WINDOW_HEIGHT = 520
