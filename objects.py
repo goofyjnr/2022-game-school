@@ -1,7 +1,9 @@
+from config import *
 from pygame.sprite import Sprite
 from pygame.math import Vector2
 from pygame.image import load
 from pygame.transform import scale
+
 
 class Drawable(Sprite):
     def __init__(self,position, width,height,image="assets/chara-1.png"):
@@ -19,8 +21,19 @@ class Physics(Drawable):
         self.vel = Vector2((0,0))
 
     def update(self):
+        self.vel += GRAVITY
         self.position += self.vel 
         self.rect.midbottom = self.position
 
 class Player(Physics):
-    pass
+    def __init__(self, position, width, height, image="assets/chara-1.png"):
+        super().__init__(position, width, height, image)
+        
+    def move(self):
+       pass
+    def jump(self):
+        pass
+    def cancel_jump(self):
+        pass
+    def update(self):
+        pass
