@@ -28,12 +28,24 @@ class Physics(Drawable):
 class Player(Physics):
     def __init__(self, position, width, height, image="assets/chara-1.png"):
         super().__init__(position, width, height, image)
-        
-    def move(self):
-       pass
+          
+    def move(self,direction):
+        if direction == "left":
+            self.vel -= MOVE_STRENGTH
+        elif direction == "right":
+            self.vel += MOVE_STRENGTH
+        elif direction =="up":
+            pass
+        elif direction =="down":
+            pass
+
+
     def jump(self):
-        pass
-    def cancel_jump(self):
-        pass
-    def update(self):
-        pass
+        self.vel += JUMP_STRENGTH
+
+class Barrier(Physics):
+    pass   
+
+class Platform(Physics):
+    pass
+

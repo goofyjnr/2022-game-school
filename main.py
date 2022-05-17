@@ -14,8 +14,8 @@ game_clock = pygame.time.Clock()
 #picture = Drawable((WINDOW_WITDTH/2,WINDOW_HEIGHT/2),100,100)
 
 #moveing object
-moving_object = Physics((0,WINDOW_HEIGHT/2),100,100)
-moving_object.vel = Vector2(20,2)
+player = Player((0,WINDOW_HEIGHT/2),100,100)
+player.vel = Vector2(0,0)
 
 
 #main game loop
@@ -23,7 +23,6 @@ running = True
 while running:
 
     game_clock.tick(FPS)
-
 
     #get the events
     events = pygame.event.get()
@@ -37,10 +36,16 @@ while running:
             #if ESC key gets pressed
             if event.key == K_ESCAPE:
                 running = False #if the escape key is pressed quit the game.
+            elif event.key == K_SPACE:
+                player.jump()
+            elif event.key == K_RIGHT:
+                player.move("right")
+            elif event.key == K_LEFT:
+                player.move("left")
     
-    moving_object.update()
+    player.update()
     window.fill((70,60,78))
-    window.blit(moving_object.image,moving_object.rect)
+    window.blit(player.image,player.rect)
     pygame.display.update()
     
 
