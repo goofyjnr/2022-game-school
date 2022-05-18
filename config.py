@@ -1,4 +1,6 @@
+
 from pygame import Vector2
+
 
 #game window
 WINDOW_WITDTH = 910
@@ -12,5 +14,5 @@ GRAVITY = Vector2(0,0)
 
 
 #player stuff
-JUMP_STRENGTH = Vector2(0,-4)
-MOVE_STRENGTH =  Vector2(4,0)
+JUMP_STRENGTH = Vector2(0,-2)
+MOVE_STRENGTH =  Vector2(2,0)

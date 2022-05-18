@@ -39,13 +39,20 @@ class Player(Physics):
         elif direction =="down":
             pass
 
-
     def jump(self):
         self.vel += JUMP_STRENGTH
 
-class Barrier(Physics):
-    pass   
+class Monster(Physics):
+    def __init__(self, position, width, height, image="assets/monster.png"):
+        super().__init__(position, width, height, image)
 
-class Platform(Physics):
-    pass
+    def update(self):
+        self.position += self.vel
+        self.rect.midbottom = self.position
+
+class Coin(Physics):
+    def __init__(self, position, width, height, image="assets/coin.png"):
+        super().__init__(position, width, height, image)
+    def update(self):
+        self.rect.midbottom = self.position
 
