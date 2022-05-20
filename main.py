@@ -27,17 +27,24 @@ player.vel = Vector2(0,0)
 
 #monster object create 5 monsters 
 #in random positions on the right edge of the screen
-for n in range(5):
-    new_monster = Monster((WINDOW_WITDTH,randint(0,WINDOW_HEIGHT)),30,30)
-    new_monster.add(all_sprites, monsters)
-    new_monster.vel = Vector2(-randint(1,10),0)
+def monster_spawn():
+    for n in range(1):
+        new_monster = Monster((WINDOW_WITDTH,randint(0,WINDOW_HEIGHT)),30,30)
+        new_monster.add(all_sprites, monsters)
+        new_monster.vel = Vector2(-randint(1,10),0)
 
 #creats coins placed randomly on the screen
-for n in range(10):
-    new_coin = Coin((randint(0,WINDOW_WITDTH),randint(0,WINDOW_HEIGHT)),30,30)
-    new_coin.add(all_sprites,coins)
+points = 0 #sets up the points of the player
+def coins_spawn():
+    for n in range(1):
+        new_coin = Coin((randint(0,WINDOW_WITDTH),randint(0,WINDOW_HEIGHT)),30,30)
+        new_coin.add(all_sprites,coins)
 
-
+#spawns all initial coins and monsters
+for n in range(5):
+    monster_spawn()
+for n in range(15):
+    coins_spawn()
 
 #main game loop
 running = True
@@ -47,10 +54,10 @@ while running:
 
     #get the events
     events = pygame.event.get()
-
+    
     #loop through all the events
     for event in events:
-        print(event)
+        #print(event)
         if event.type == QUIT:
             running = False
         elif event.type == KEYDOWN:
@@ -63,6 +70,26 @@ while running:
                 player.move("right")
             elif event.key == K_LEFT:
                 player.move("left")
+            elif event.key == K_UP:
+                player.move("up")
+            elif event.key == K_DOWN:
+                player.move("down")
+    for monster in monsters:
+        if not window.get_rect().inflate(100,100).contains(monster.rect):
+            monster.kill()
+            monster_spawn()
+    hit_monster = pygame.sprite.spritecollide(player,monsters,True)
+    if len(hit_monster) != 0:
+        monster_spawn()
+    hit_coins = pygame.sprite.spritecollide(player,coins,True)
+    if len(hit_coins) != 0:
+        points = points + 1
+        print(points)
+        coins_spawn()
+
+
+
+
     
     all_sprites.update()
     window.fill((70,60,78))

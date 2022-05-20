@@ -21,9 +21,10 @@ class Physics(Drawable):
         self.vel = Vector2((0,0))
 
     def update(self):
-        self.vel += GRAVITY
+        self.vel += GRAVITY 
+        self.vel -=self.vel * FRIC
         self.position += self.vel 
-        self.rect.midbottom = self.position
+        self.rect.midbottom = self.position 
 
 class Player(Physics):
     def __init__(self, position, width, height, image="assets/chara-1.png"):
@@ -35,9 +36,9 @@ class Player(Physics):
         elif direction == "right":
             self.vel += MOVE_STRENGTH
         elif direction =="up":
-            pass
+            self.vel -= LIFT_STRENGTH
         elif direction =="down":
-            pass
+            self.vel += LIFT_STRENGTH
 
     def jump(self):
         self.vel += JUMP_STRENGTH
