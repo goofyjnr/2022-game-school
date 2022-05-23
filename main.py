@@ -19,6 +19,7 @@ all_sprites = pygame.sprite.Group()
 players = pygame.sprite.Group()
 monsters = pygame.sprite.Group()
 coins = pygame.sprite.Group()
+ui_group = pygame.sprite.Group()
 
 #player object
 player = Player((0,WINDOW_HEIGHT/2),40,40)
@@ -46,6 +47,24 @@ for n in range(5):
 for n in range(15):
     coins_spawn()
 
+
+
+#stops the game
+def pause():
+    paused = True
+    pause_text = Text("paused",40,(WINDOW_WITDTH/2,WINDOW_HEIGHT/2),all_sprites, ui_group)
+    ui_group.draw(window)
+    pygame.display.update()
+    
+    while paused:
+        event = pygame.event.wait()
+        if event.type == KEYDOWN:
+            if event.key == K_p:
+                
+                paused = False
+                pause_text.kill()
+
+
 #main game loop
 running = True
 while running:
@@ -64,6 +83,8 @@ while running:
             #if ESC key gets pressed
             if event.key == K_ESCAPE:
                 running = False #if the escape key is pressed quit the game.
+            elif event.key == K_p:
+                pause()
             elif event.key == K_SPACE:
                 player.jump()
             elif event.key == K_RIGHT:
@@ -74,6 +95,7 @@ while running:
                 player.move("up")
             elif event.key == K_DOWN:
                 player.move("down")
+
     for monster in monsters:
         if not window.get_rect().inflate(100,100).contains(monster.rect):
             monster.kill()
@@ -86,13 +108,9 @@ while running:
         points = points + 1
         print(points)
         coins_spawn()
-
-
-
-
     
     all_sprites.update()
-    window.fill((70,60,78))
+    window.fill(BACKGROUNDCOLOUR)
     for sprite in all_sprites:
         window.blit(sprite.image,sprite.rect)
     

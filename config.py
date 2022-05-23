@@ -6,6 +6,10 @@ from pygame import Vector2
 WINDOW_WITDTH = 910
 WINDOW_HEIGHT = 520
 
+#colours
+BACKGROUNDCOLOUR = (70,60,78)
+TEXTCOLOUR = (255,255,255)
+
 #Frames per second
 FPS = 30
 

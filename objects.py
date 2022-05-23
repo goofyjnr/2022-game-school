@@ -3,6 +3,7 @@ from pygame.sprite import Sprite
 from pygame.math import Vector2
 from pygame.image import load
 from pygame.transform import scale
+from pygame.font import Font
 
 
 class Drawable(Sprite):
@@ -46,6 +47,7 @@ class Player(Physics):
 class Monster(Physics):
     def __init__(self, position, width, height, image="assets/monster.png"):
         super().__init__(position, width, height, image)
+    
 
     def update(self):
         self.position += self.vel
@@ -57,3 +59,14 @@ class Coin(Physics):
     def update(self):
         self.rect.midbottom = self.position
 
+class Text(Sprite):
+    def __init__(self, text, size, position, *groups) -> None:
+        super().__init__(*groups)
+        self.text = text
+        self.position = Vector2(position)
+        self.font = Font(None,size)
+        self.image = self.font.render(self.text,True,TEXTCOLOUR,BACKGROUNDCOLOUR)
+        self.rect = self.image.get_rect(midbottom=position)
+    def update(self):
+        self.image = self.font.render(self.text,True,TEXTCOLOUR,BACKGROUNDCOLOUR)
+        self.rect = self.image.get_rect(midbottom=self.position)
