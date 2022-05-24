@@ -15,7 +15,7 @@ FPS = 30
 
 #game world physics
 GRAVITY = Vector2(0,0)
-FRIC = 0.1 #Friction
+FRIC = 0.08 #Friction
 
 
 #player stuff

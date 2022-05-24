@@ -12,6 +12,7 @@ class Drawable(Sprite):
 
         self.position = Vector2(position)
         self.image = scale(load(image),(width,height))
+        self.image.set_colorkey((181,230,29))
         
         self.rect = self.image.get_rect(midbottom=position)
 
@@ -30,6 +31,8 @@ class Physics(Drawable):
 class Player(Physics):
     def __init__(self, position, width, height, image="assets/chara-1.png"):
         super().__init__(position, width, height, image)
+        self.score = 0
+        self.health = 3
           
     def move(self,direction):
         if direction == "left":
@@ -65,8 +68,9 @@ class Text(Sprite):
         self.text = text
         self.position = Vector2(position)
         self.font = Font(None,size)
-        self.image = self.font.render(self.text,True,TEXTCOLOUR,BACKGROUNDCOLOUR)
+        self.image = self.font.render(self.text,True,TEXTCOLOUR)
+        self.image.set_colorkey(BACKGROUNDCOLOUR)
         self.rect = self.image.get_rect(midbottom=position)
     def update(self):
-        self.image = self.font.render(self.text,True,TEXTCOLOUR,BACKGROUNDCOLOUR)
+        self.image = self.font.render(self.text,True,TEXTCOLOUR)
         self.rect = self.image.get_rect(midbottom=self.position)
