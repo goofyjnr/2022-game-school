@@ -32,7 +32,7 @@ class Player(Physics):
     def __init__(self, position, width, height, image="assets/chara-1.png"):
         super().__init__(position, width, height, image)
         self.score = 0
-        self.health = 3
+        self.health = PLAYER_HEALTH
           
     def move(self,direction):
         if direction == "left":
@@ -74,3 +74,12 @@ class Text(Sprite):
     def update(self):
         self.image = self.font.render(self.text,True,TEXTCOLOUR)
         self.rect = self.image.get_rect(midbottom=self.position)
+
+class Platform(Physics):
+    def __init__(self, position, width, height, image="assets/platform.png"):
+        super().__init__(position, width, height, image)
+        self.vel = Vector2((0,0))
+    def update(self):
+        self.position += self.vel
+        self.rect.midbottom = self.position
+

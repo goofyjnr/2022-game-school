@@ -22,3 +22,4 @@ FRIC = 0.08 #Friction
 JUMP_STRENGTH = Vector2(0,-10)
 MOVE_STRENGTH =  Vector2(5,0)
 LIFT_STRENGTH = Vector2(0,5)
+PLAYER_HEALTH = 3

@@ -20,6 +20,17 @@ players = pygame.sprite.Group()
 monsters = pygame.sprite.Group()
 coins = pygame.sprite.Group()
 ui_group = pygame.sprite.Group()
+platforms = pygame.sprite.Group()
+
+
+#platform object
+def platform_spawn():
+    for n in range(7):
+        platform = Platform((randint(40,WINDOW_WITDTH-40),randint(10,WINDOW_HEIGHT-10)),70,20)
+        platform.add(all_sprites,platforms)
+
+    
+platform_spawn()
 
 #player object
 player = Player((0,WINDOW_HEIGHT/2),40,40)
@@ -62,11 +73,21 @@ def pause():
                 paused = False
                 pause_text.kill()
 
+def hits_platform(player,platforms):
+    hits_platforms = pygame.sprite.spritecollide(player,platforms,False)
+    if len(hits_platforms) != 0 :
+        if player.vel.y > 0:
+            player.vel.y = 0 
+            player.position.y = hits_platforms[0].rect.top+1
+
+
+
 #spawns all initial coins and monsters
 for n in range(5):
     monster_spawn()
 for n in range(15):
     coins_spawn()
+
 
 
 
@@ -126,7 +147,10 @@ while running:
         pygame.time.delay(1000)
         running = False
 
-    
+    hits_platform(player,platforms)
+
+
+
     all_sprites.update()
     window.fill(BACKGROUNDCOLOUR)
     for sprite in all_sprites:
