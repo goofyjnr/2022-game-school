@@ -26,14 +26,18 @@ platforms = pygame.sprite.Group()
 #platform object
 def platform_spawn():
     for n in range(7):
-        platform = Platform((randint(40,WINDOW_WITDTH-40),randint(10,WINDOW_HEIGHT-10)),70,20)
+        platform = Platform((randint(40,WINDOW_WITDTH-40),randint(10,WINDOW_HEIGHT-30)),70,20)
         platform.add(all_sprites,platforms)
 
     
 platform_spawn()
 
+#base platform
+platform = Platform((WINDOW_WITDTH/2,WINDOW_HEIGHT),WINDOW_WITDTH,40)
+platform.add(all_sprites,platforms)
+
 #player object
-player = Player((0,WINDOW_HEIGHT/2),40,40)
+player = Player((30,WINDOW_HEIGHT/2),40,40)
 player.add(all_sprites, players)
 player.vel = Vector2(0,0)
 
@@ -44,14 +48,14 @@ player_health_text = Text("Health: " + str(player.health),40,(WINDOW_WITDTH-100,
 #in random positions on the right edge of the screen
 def monster_spawn():
     for n in range(1):
-        new_monster = Monster((WINDOW_WITDTH,randint(0,WINDOW_HEIGHT)),30,30)
+        new_monster = Monster((WINDOW_WITDTH,randint(0,WINDOW_HEIGHT-35)),30,30)
         new_monster.add(all_sprites, monsters)
         new_monster.vel = Vector2(-randint(3,10),0)
 
 #creats coins placed randomly on the screen
 def coins_spawn():
     for n in range(1):
-        new_coin = Coin((randint(0,WINDOW_WITDTH),randint(0,WINDOW_HEIGHT)),30,30)
+        new_coin = Coin((randint(0,WINDOW_WITDTH-10),randint(0,WINDOW_HEIGHT-20)),30,30)
         new_coin.add(all_sprites,coins)
 
 
@@ -79,6 +83,21 @@ def hits_platform(player,platforms):
         if player.vel.y > 0:
             player.vel.y = 0 
             player.position.y = hits_platforms[0].rect.top+1
+
+def player_offscreen():
+    if player.position.x < 0:
+        player.vel = Vector2(0,0)
+        player.position.x = player.position.x+3
+         
+    if player.position.x > WINDOW_WITDTH:
+        player.vel = Vector2(0,0)
+        player.position.x = player.position.x-3
+    if player.position.y < 0 :
+        player.vel = Vector2(0,0)
+        player.position.x = player.position.y+3
+    if player.position.y > WINDOW_HEIGHT:
+        player.vel = Vector2(0,0)
+        player.position.x = player.position.y-3
 
 
 
@@ -148,6 +167,7 @@ while running:
         running = False
 
     hits_platform(player,platforms)
+    player_offscreen()
 
 
 

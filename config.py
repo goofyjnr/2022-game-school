@@ -14,12 +14,12 @@ TEXTCOLOUR = (255,255,255)
 FPS = 30
 
 #game world physics
-GRAVITY = Vector2(0,0)
+GRAVITY = Vector2(0,0.1)
 FRIC = 0.08 #Friction
 
 
 #player stuff
-JUMP_STRENGTH = Vector2(0,-10)
+JUMP_STRENGTH = Vector2(0,-20)
 MOVE_STRENGTH =  Vector2(5,0)
 LIFT_STRENGTH = Vector2(0,5)
 PLAYER_HEALTH = 3
