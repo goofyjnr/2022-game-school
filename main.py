@@ -87,8 +87,7 @@ def hits_platform(player,platforms):
 def player_offscreen():
     if player.position.x < 0:
         player.vel = Vector2(0,0)
-        player.position.x = player.position.x+3
-         
+        player.position.x = player.position.x+3       
     if player.position.x > WINDOW_WITDTH:
         player.vel = Vector2(0,0)
         player.position.x = player.position.x-3
@@ -160,8 +159,8 @@ while running:
         coins_spawn()
     if player.health == 0:
         gameover_text = Text("Game Over",40,(WINDOW_WITDTH/2,WINDOW_HEIGHT/2),all_sprites, ui_group)
-        player.kill()
         ui_group.draw(window)
+        player.kill()
         pygame.display.update()
         pygame.time.delay(1000)
         running = False
